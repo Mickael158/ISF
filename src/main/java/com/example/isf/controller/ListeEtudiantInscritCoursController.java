@@ -25,7 +25,7 @@ public class ListeEtudiantInscritCoursController {
     ListEtudiantInscritCoursService listEtudiantInscritCoursService;
 
 
-    @GetMapping("/Select_Liste_etudiant_By_idCours")
+    @GetMapping("/Select_Liste_etudiant_By_idCours/{id}")
     public ResponseEntity<HashMap> Select_Liste_etudiant_By_idCours(@PathVariable int id) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         try {
