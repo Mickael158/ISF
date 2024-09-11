@@ -1,7 +1,7 @@
-package com.example.isf.controller;
+package com.example.isf.controller.Crud;
 
-import com.example.isf.model.Formation;
-import com.example.isf.service.FormationService;
+import com.example.isf.model.Institut;
+import com.example.isf.service.InstitutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +14,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/Formation")
-public class FormationController {
+@RequestMapping("/Institut")
+public class InstitutController {
     @Autowired
-    FormationService formationService;
-
-    @PostMapping("/insertionFormation")
-    public ResponseEntity<HashMap> insertionFormation(@RequestBody Map<String, String> credentials) throws Exception {
+    InstitutService institutService;
+    @PostMapping("/insertionInstitut")
+    public ResponseEntity<HashMap> insertionInstitut(@RequestBody Map<String, String> credentials) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
-        String nom_formation = credentials.get("nom_formation");
-        Formation f = new Formation();
-        f.setNom_formation(nom_formation);
+        String logo = credentials.get("logo");
+        Institut i = new Institut();
+        i.setLogo(logo);
         try {
-            Formation formation = this.formationService.enregistrerFormation(f);
-            result.put("data",formation);
+            Institut institut = this.institutService.enregistrerInstitut(i);
+            result.put("data",institut);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             result.put("Erreur" , e.getMessage());

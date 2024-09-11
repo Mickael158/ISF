@@ -1,4 +1,4 @@
-package com.example.isf.controller;
+package com.example.isf.controller.Crud;
 
 import com.example.isf.model.Cours;
 import com.example.isf.model.Niveaux;
@@ -44,7 +44,7 @@ public class CoursController {
         Optional<Niveaux> niveaux = this.niveauService.select_New_Niveaux_promotion(Integer.parseInt(promotion_id));
         Cours c = new Cours();
         c.setDate_debut(Date.valueOf(date_debut));
-        c.setDate_fin(Date.valueOf(date_debut));
+        c.setDate_fin(Date.valueOf(date_fin));
         c.setPromotion_id(promotion.get());
         c.setId_niveaux(niveaux.get());
         try {

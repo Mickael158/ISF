@@ -1,7 +1,7 @@
-package com.example.isf.controller;
+package com.example.isf.controller.Crud;
 
-import com.example.isf.model.Institut;
-import com.example.isf.service.InstitutService;
+import com.example.isf.model.Semestre;
+import com.example.isf.service.SemestreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
 import java.util.Map;
-
 @Controller
-@RequestMapping("/Institut")
-public class InstitutController {
+@RequestMapping("/Semestre")
+public class SemestreController {
     @Autowired
-    InstitutService institutService;
-    @PostMapping("/insertionInstitut")
-    public ResponseEntity<HashMap> insertionInstitut(@RequestBody Map<String, String> credentials) throws Exception {
+    SemestreService semestreService;
+
+    @PostMapping("/insertionSemestre")
+    public ResponseEntity<HashMap> insertionSemestre(@RequestBody Map<String, String> credentials) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
-        String logo = credentials.get("logo");
-        Institut i = new Institut();
-        i.setLogo(logo);
+        String nsemestre = credentials.get("semestre");
+        Semestre s = new Semestre();
+        s.setSemestre(nsemestre);
         try {
-            Institut institut = this.institutService.enregistrerInstitut(i);
-            result.put("data",institut);
+            Semestre semestre = this.semestreService.enregistrerSemestre(s);
+            result.put("data",semestre);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             result.put("Erreur" , e.getMessage());

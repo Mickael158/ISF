@@ -1,4 +1,4 @@
-package com.example.isf.controller;
+package com.example.isf.controller.Crud;
 
 import com.example.isf.model.Niveaux;
 import com.example.isf.model.PrixEcolage;

@@ -19,6 +19,18 @@ public class Personne {
     @Column(name = "telephone")
     private String telephone;
 
+    @ManyToOne
+    @JoinColumn(name = "id_genre")
+    private Genre id_genre;
+
+    public Genre getId_genre() {
+        return id_genre;
+    }
+
+    public void setId_genre(Genre id_genre) {
+        this.id_genre = id_genre;
+    }
+
     public Integer getId_personne() {
         return id_personne;
     }

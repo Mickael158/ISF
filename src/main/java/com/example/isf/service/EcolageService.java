@@ -53,7 +53,7 @@ public class EcolageService {
         // Retour de la nouvelle date sous forme de chaîne
         return dateModifiee.format(formatter);
     }
-    public List<Ecolage> payemant_Ecolage(int  id , int mois , int idCours) {
+    public List<Ecolage> devis_ecolage(int  id , int mois , int idCours) {
         List<Ecolage> devis = new ArrayList<>();
         Optional<Cours> cours = this.coursRepository.findById(idCours);
         Optional<PrixEcolage> prixEcolage = this.prixEcolageRepository.select_last_prix_ecolage_by_niveau(cours.get().getId_niveaux().getId_niveaux());

@@ -27,11 +27,16 @@ CREATE TABLE PROMOTION(
       Filiere_id  INT REFERENCES FILIERE(id_filiere),
       Formation_id  INT REFERENCES FORMATION(id_Formation)
 );
+CREATE TABLE genre(
+  id_genre SERIAL PRIMARY KEY ,
+  nom VARCHAR
+);
 CREATE TABLE personne(
      id_personne SERIAL PRIMARY KEY,
      Nom VARCHAR(100) NOT NULL,
      Prenom VARCHAR(100) NOT NULL,
-     Telephone VARCHAR(16) NOT NULL
+     Telephone VARCHAR(16) NOT NULL,
+     id_genre INT REFERENCES genre(id_genre)
 );
 CREATE TABLE ETUDIANT(
      id_Etudiant SERIAL PRIMARY KEY,
@@ -39,6 +44,7 @@ CREATE TABLE ETUDIANT(
      id_personne INT REFERENCES personne(id_personne),
      promotion_id INT REFERENCES promotion(id_Promotion)
 );
+
 CREATE TABLE Utilisateur(
     id_utilisateur SERIAL PRIMARY KEY,
     Password VARCHAR(100) NOT NULL,
@@ -61,8 +67,6 @@ CREATE TABLE Liste_Etudiant_Inscrit_Cours(
     id_cours INT REFERENCES COURS(id_Cours),
     id_etudiant INT REFERENCES Etudiant(id_Etudiant)
 );
-
-
 CREATE TABLE prix_ecolage(
      id_prix_ecolage SERIAL PRIMARY KEY,
      valeur float,
@@ -77,41 +81,36 @@ CREATE TABLE ECOLAGE(
     id_Cours INT REFERENCES cours(id_cours),
     Etudiant_id INT REFERENCES Etudiant(id_Etudiant)
 );
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
-
-CREATE TABLE PROFESSEUR(
-   id_Professeur SERIAL PRIMARY KEY,
-   id_personne INT REFERENCES personne(id_personne)
+CREATE TABLE professeur(
+    id_Professeur SERIAL PRIMARY KEY,
+    id_personne INT REFERENCES personne(id_personne)
 );
-CREATE TABLE MATIERE(
+CREATE TABLE matiere(
     id_Matiere SERIAL PRIMARY KEY,
     Nom_Matiere VARCHAR(100) NOT NULL,
     Coeff INT
 );
-
-CREATE TABLE PROFESSEUR_MATIERE(
-   Professeur_id INT REFERENCES PROFESSEUR(id_Professeur),
-   Matiere_id INT REFERENCES MATIERE(id_Natiere)
+CREATE TABLE professeur_matiere(
+    id_professeur_matiere SERIAL PRIMARY KEY ,
+    Professeur_id INT REFERENCES PROFESSEUR(id_Professeur),
+    Matiere_id INT REFERENCES MATIERE(id_Matiere),
+    id_Cours INT REFERENCES COURS(id_Cours)
 );
-
-CREATE TABLE NOTE(
-                     id_Note SERIAL NOT NULL,
-                     Note INT,
-                     Matiere_id INT REFERENCES MATIERE(id_Matiere),
-                     Examen_id INT REFERENCES EXAMEN(id_Examen),
-                     Etudiant_id INT REFERENCES ETUDIANT(id_Etudiant)
+CREATE TABLE examen(
+  id_examen SERIAL PRIMARY KEY ,
+  date_debut date,
+    date_fin date,
+  cours_id INT REFERENCES COURS(id_Cours),
+  semestre_id INT REFERENCES SEMESTRE(id_Semestre)
 );
-
-CREATE TABLE RESULTAT_EXAMEN(
-                                id_Resultat SERIAL PRIMARY KEY,
-                                Total FLOAT,
-                                Moyen_General FLOAT,
-                                Examen_Id INT REFERENCES EXAMEN(id_Examen),
-                                Etudiant_Id INT REFERENCES ETUDIANT(id_Etudiant)
+CREATE TABLE note_examen(
+  id_note_examen SERIAL PRIMARY KEY ,
+  id_examen INT REFERENCES examen(id_examen),
+  id_etudiant INT REFERENCES ETUDIANT(id_Etudiant),
+  id_professeur_matiere INT REFERENCES professeur_matiere(id_professeur_matiere),
+  note float
 );
+///////////////////////////////////////////////////////////////////////////////////////////
 
 
 CREATE TABLE DOSSIER_FOURNIR(

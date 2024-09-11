@@ -14,4 +14,9 @@ public interface EtudiantRepository extends JpaRepository<Etudiant , Integer> {
    select * from etudiant where matricule=:matricule;
     """,nativeQuery = true)
     Optional<Etudiant> select_etudiant_by_Matricule(@Param("matricule") String matricule);
+
+    @Query(value = """
+   select * from ETUDIANT where id_Etudiant=(select MAX(id_Etudiant) from ETUDIANT);
+    """,nativeQuery = true)
+    Optional<Etudiant> select_etudiant_Max();
 }
