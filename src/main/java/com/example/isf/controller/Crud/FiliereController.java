@@ -1,16 +1,19 @@
 package com.example.isf.controller.Crud;
 
 import com.example.isf.model.Filiere;
+import com.example.isf.model.Genre;
 import com.example.isf.service.FiliereService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -30,6 +33,19 @@ public class FiliereController {
         try {
             Filiere filiere = this.filiereService.enregistrerFiliere(f);
             result.put("data",filiere);
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @GetMapping("/SelectAll_Filiere")
+    public ResponseEntity<HashMap> SelectAll_Genre() throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        try {
+            List<Filiere> filieres = this.filiereService.selectAll_Filiere();
+            result.put("data",filieres);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             result.put("Erreur" , e.getMessage());

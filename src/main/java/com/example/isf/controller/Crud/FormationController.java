@@ -1,17 +1,21 @@
 package com.example.isf.controller.Crud;
 
-import com.example.isf.model.Formation;
-import com.example.isf.service.FormationService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.example.isf.model.Formation;
+import com.example.isf.model.Promotion;
+import com.example.isf.service.FormationService;
 
 @Controller
 @RequestMapping("/Formation")
@@ -28,6 +32,19 @@ public class FormationController {
         try {
             Formation formation = this.formationService.enregistrerFormation(f);
             result.put("data",formation);
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @GetMapping("/selectAll_Formation")
+    public ResponseEntity<HashMap> selectAll_Formation() throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        try {
+            List<Formation> formations = this.formationService.selectAll_formation();
+            result.put("data",formations);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             result.put("Erreur" , e.getMessage());

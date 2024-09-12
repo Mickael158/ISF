@@ -1,12 +1,13 @@
 package com.example.isf.service;
 
-import com.example.isf.model.Promotion;
-import com.example.isf.repository.PromotionRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.example.isf.model.Promotion;
+import com.example.isf.repository.PromotionRepository;
 
 @Service
 public class PromotionService {
@@ -22,6 +23,6 @@ public class PromotionService {
     }
 
     public List<Promotion> selectAll_Promotion() {
-        return this.promotionRepository.findAll();
+        return this.promotionRepository.findAll(); 
     }
 }
