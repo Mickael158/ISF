@@ -2,7 +2,6 @@ package com.example.isf.controller.Crud;
 
 import com.example.isf.model.*;
 import com.example.isf.service.MatiereService;
-import com.example.isf.service.NiveauService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
 @Controller
 @RequestMapping("/Matiere")
 public class MatiereController {

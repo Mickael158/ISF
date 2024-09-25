@@ -17,6 +17,11 @@ public class SemestreService {
         return this.semestreRepository.save(semestre);
     }
 
+    public List<Semestre> SelectAll_Semestre() {
+        return this.semestreRepository.findAll();
+    }
+
+
     public Optional<Semestre> select_Semestre_by_id(int id) {
         return this.semestreRepository.findById(id);
     }

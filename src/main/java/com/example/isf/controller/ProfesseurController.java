@@ -37,12 +37,16 @@ public class ProfesseurController {
         String nom = credentials.get("nom");
         String prenom = credentials.get("prenom");
         String telephone = credentials.get("telephone");
+        String adresse = credentials.get("adresse");
+        String email = credentials.get("email");
         String id_genre = credentials.get("id_genre");
         Optional<Genre> genre = this.genreService.Genre_By_Id(Integer.parseInt(id_genre));
         Personne p = new Personne();
         p.setNom(nom);
         p.setPrenom(prenom);
         p.setTelephone(telephone);
+        p.setEmail(email);
+        p.setAdresse(adresse);
         p.setId_genre(genre.get());
         try {
             Personne personne = this.personneService.enregistrePersonne(p);

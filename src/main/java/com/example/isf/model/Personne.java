@@ -19,6 +19,12 @@ public class Personne {
     @Column(name = "telephone")
     private String telephone;
 
+    @Column(name = "adresse")
+    private String adresse;
+
+    @Column(name = "email")
+    private String email;
+
     @ManyToOne
     @JoinColumn(name = "id_genre")
     private Genre id_genre;
@@ -61,5 +67,21 @@ public class Personne {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
 }

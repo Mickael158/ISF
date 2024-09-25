@@ -1,7 +1,6 @@
 package com.example.isf.repository;
 
 import com.example.isf.model.Cours;
-import com.example.isf.model.Cours;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

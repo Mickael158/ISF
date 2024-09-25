@@ -25,4 +25,8 @@ public class FormationService {
     public Optional<Formation> formation_by_id(int id) {
         return this.formationRepository.findById(id);
     }
+
+    public void delete_formation(Formation formation) {
+        this.formationRepository.deleteById(formation.getId_formation());
+    }
 }

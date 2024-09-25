@@ -15,7 +15,7 @@ public class Professeur_matiereService {
     private Professeur_matiereRepository professeur_matiereRepository;
 
     public Professeur_matiere enregistreProfesseur_matiere(Professeur_matiere professeur_matiere) {
-        return this.enregistreProfesseur_matiere(professeur_matiere);
+        return this.professeur_matiereRepository.save(professeur_matiere);
     }
 
     public Optional<Professeur_matiere> Professeur_matiere_By_Id(int id) {

@@ -1,12 +1,14 @@
 package com.example.isf.service;
 
 import com.example.isf.model.Cours;
+import com.example.isf.model.Matiere;
 import com.example.isf.model.Niveaux;
 import com.example.isf.repository.CoursRepository;
 import com.example.isf.repository.NiveauRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +38,9 @@ public class NiveauService {
             Optional<Niveaux> Newniveau = this.Niveau_By_Id(1);
             return Newniveau;
         }
+    }
+
+    public List<Niveaux> SelectAll_Niveaux() {
+        return this.niveauRepository.findAll();
     }
 }

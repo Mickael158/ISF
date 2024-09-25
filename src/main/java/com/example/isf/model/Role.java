@@ -3,7 +3,7 @@ package com.example.isf.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "utilisateur")
+@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

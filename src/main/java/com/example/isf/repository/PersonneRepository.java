@@ -11,9 +11,9 @@ import java.util.Optional;
 @Repository
 public interface PersonneRepository extends JpaRepository<Personne, Integer> {
     @Query(value = """
-   select * from personne where nom=:nom;
+   select * from personne where email=:email;
     """,nativeQuery = true)
-    Optional<Personne> select_personne_by_Nom(@Param("nom") String nom);
+    Optional<Personne> select_personne_by_Email(@Param("email") String email);
 
     @Query(value = """
    select id_personne from personne where id_personne=(select MAX(id_Personne) from personne);
