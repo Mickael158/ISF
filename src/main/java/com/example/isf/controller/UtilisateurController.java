@@ -1,5 +1,6 @@
 package com.example.isf.controller;
 
+import com.example.isf.configuration.JWTManager;
 import com.example.isf.model.Utilisateur;
 import com.example.isf.repository.RoleRepository;
 import com.example.isf.model.Personne;
@@ -29,6 +30,10 @@ public class UtilisateurController {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    JWTManager jwtManager;
+
     @PostMapping("/checking")
     public ResponseEntity<HashMap> checking(@RequestBody Map<String, String> credentials) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
@@ -37,7 +42,7 @@ public class UtilisateurController {
         try {
             Utilisateur utilisateur = this.utilisateurService.login(matricule , pswd);
             if (utilisateur != null) {
-                result.put("data",utilisateur);
+                result.put("data",jwtManager.generateToken(utilisateur));
                 return new ResponseEntity<>(result , HttpStatus.OK);
             }
         }catch (Exception e) {

@@ -1,11 +1,15 @@
 package com.example.isf.controller;
 
+import com.example.isf.configuration.JWTInterceptor;
+import com.example.isf.configuration.JWTManager;
 import com.example.isf.model.*;
 import com.example.isf.service.CoursService;
 import com.example.isf.service.ExamenService;
 import com.example.isf.service.GenreService;
 import com.example.isf.service.SemestreService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,9 @@ public class ExamenController {
 
     @Autowired
     SemestreService semestreService;
+
+    @Autowired
+    JWTManager jwtManager;
 
 
     @PostMapping("/insertionExamen")

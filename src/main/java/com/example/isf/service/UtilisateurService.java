@@ -23,7 +23,7 @@ public class UtilisateurService {
         Optional<Personne> personne = this.personneRepository.select_personne_by_Email(nom);
 
         if (personne.isPresent()){
-            Optional<Utilisateur> utilisateur = this.utilisateurRepository.select_utilisateur_by_Personne_Pswd(personne.get().getId_personne() , pswd);
+            Optional<Utilisateur> utilisateur = this.select_utilisateur_by_Personne_Pswd(personne.get().getId_personne() , pswd);
             if (utilisateur.isPresent()){
                 return utilisateur.get();
             }
