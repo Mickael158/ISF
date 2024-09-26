@@ -36,7 +36,9 @@ CREATE TABLE personne(
      Nom VARCHAR(100) NOT NULL,
      Prenom VARCHAR(100) NOT NULL,
      Telephone VARCHAR(16) NOT NULL,
-     id_genre INT REFERENCES genre(id_genre)
+     id_genre INT REFERENCES genre(id_genre),
+     email VARCHAR,
+     adresse VARCHAR
 );
 CREATE TABLE ETUDIANT(
      id_Etudiant SERIAL PRIMARY KEY,

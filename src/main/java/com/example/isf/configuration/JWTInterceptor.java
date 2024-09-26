@@ -10,17 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 
 public class JWTInterceptor extends OncePerRequestFilter {
 
@@ -39,9 +34,13 @@ public class JWTInterceptor extends OncePerRequestFilter {
                 jwt.validateToken(token);
                 String email = jwt.getClaim(token, "email");
                 String pwd = jwt.getClaim(token, "password");
-                Utilisateur users = this.utilisateurService.login(email, pwd);
+                Utilisateur utilisateur = this.utilisateurService.login(email, pwd);
+
+                CustomUserDetails userDetails = new CustomUserDetails(utilisateur);
+
                 UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(users, null);
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
                 SecurityContextHolder.getContext().setAuthentication(authToken);
 
             } catch (AuthenticationCredentialsNotFoundException e) {
@@ -60,6 +59,7 @@ public class JWTInterceptor extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
 
 
     public static String getJWTFromRequest(HttpServletRequest request) {
