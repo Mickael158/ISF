@@ -26,4 +26,7 @@ public class FiliereService {
     public Optional<Filiere> filiere_By_id(int  id) {
         return this.filiereRepository.findById(id);
     }
+    public void delete_by_id(int  id) {
+         this.filiereRepository.deleteById(id);
+    }
 }

@@ -46,7 +46,6 @@ CREATE TABLE ETUDIANT(
      id_personne INT REFERENCES personne(id_personne),
      promotion_id INT REFERENCES promotion(id_Promotion)
 );
-
 CREATE TABLE Utilisateur(
     id_utilisateur SERIAL PRIMARY KEY,
     Password VARCHAR(100) NOT NULL,
@@ -69,6 +68,7 @@ CREATE TABLE Liste_Etudiant_Inscrit_Cours(
     id_cours INT REFERENCES COURS(id_Cours),
     id_etudiant INT REFERENCES Etudiant(id_Etudiant)
 );
+
 CREATE TABLE prix_ecolage(
      id_prix_ecolage SERIAL PRIMARY KEY,
      valeur float,
@@ -98,10 +98,11 @@ CREATE TABLE professeur_matiere(
     Matiere_id INT REFERENCES MATIERE(id_Matiere),
     id_Cours INT REFERENCES COURS(id_Cours)
 );
+
 CREATE TABLE examen(
   id_examen SERIAL PRIMARY KEY ,
   date_debut date,
-    date_fin date,
+  date_fin date,
   cours_id INT REFERENCES COURS(id_Cours),
   semestre_id INT REFERENCES SEMESTRE(id_Semestre)
 );

@@ -1,9 +1,6 @@
 package com.example.isf.controller;
 
-import com.example.isf.model.Etudiant;
-import com.example.isf.model.Genre;
-import com.example.isf.model.Personne;
-import com.example.isf.model.Promotion;
+import com.example.isf.model.*;
 import com.example.isf.repository.EtudiantRepository;
 import com.example.isf.service.EtudiantService;
 import com.example.isf.service.GenreService;
@@ -13,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +79,19 @@ public class EtudiantController {
         HashMap<String, Object> result = new HashMap<>();
         try {
             List<Etudiant> etudiants = this.etudiantService.selectAll_etudiant();
+            result.put("data",etudiants);
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @GetMapping("/Select_Liste_etudiant_By_idCours/{id}")
+    public ResponseEntity<HashMap> Select_Liste_etudiant_By_idCours(@PathVariable int id) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        try {
+            List<Etudiant> etudiants = this.etudiantService.select_etudiant_by_id_cours(id);
             result.put("data",etudiants);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {

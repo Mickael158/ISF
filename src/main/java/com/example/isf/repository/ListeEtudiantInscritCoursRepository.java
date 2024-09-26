@@ -23,4 +23,6 @@ public interface ListeEtudiantInscritCoursRepository extends JpaRepository<Liste
    
     """,nativeQuery = true)
     List<ListeEtudiantInscritCours> selectCours_next_by_date(@Param("id_cours") int id_cours);
+
+
 }

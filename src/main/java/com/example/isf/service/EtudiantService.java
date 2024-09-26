@@ -29,4 +29,7 @@ public class EtudiantService {
     public List<Etudiant> selectAll_etudiant() {
         return this.etudiantRepository.findAll();
     }
+    public List<Etudiant> select_etudiant_by_id_cours(int id) {
+        return this.etudiantRepository.select_etudiant_by_id_cours(id);
+    }
 }

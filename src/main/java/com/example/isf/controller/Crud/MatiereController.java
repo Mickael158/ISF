@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/Matiere")
 public class MatiereController {
@@ -44,6 +43,42 @@ public class MatiereController {
         HashMap<String, Object> result = new HashMap<>();
         try {
             List<Matiere> matieres = this.matiereService.SelectAll_Matiere();
+            result.put("data",matieres);
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @PostMapping("/Delete_Matiere")
+    public ResponseEntity<HashMap<String, Object>> deleteMatiere(@RequestBody Map<String, String> credentials) {
+        HashMap<String, Object> result = new HashMap<>();
+        try {
+            int id_matiere = Integer.parseInt(credentials.get("id_matiere"));
+            Optional<Matiere> matiere = this.matiereService.Matiere_By_Id(id_matiere);
+
+            if (matiere.isPresent()) {
+                this.matiereService.delete_Matiere(matiere.get().getId_matiere());
+                result.put("message", "Matiere supprimée avec succès");
+                return new ResponseEntity<>(result, HttpStatus.OK);
+            } else {
+                result.put("message", "Formation non trouvée");
+                return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+            }
+        } catch (NumberFormatException e) {
+            result.put("Erreur", "ID de formation invalide");
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            result.put("Erreur", e.getMessage());
+            return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/Select_matiere_By_idCours/{id}")
+    public ResponseEntity<HashMap> select_matiere_by_id_cours(@PathVariable int id) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        try {
+            List<Matiere> matieres = this.matiereService.select_matiere_by_id_cours(id);
             result.put("data",matieres);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {

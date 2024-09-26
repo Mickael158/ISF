@@ -25,5 +25,12 @@ public class MatiereService {
     public List<Matiere> SelectAll_Matiere() {
         return this.matiererepository.findAll();
     }
+    public List<Matiere> select_matiere_by_id_cours(int id) {
+        return this.matiererepository.select_matiere_by_id_cours(id);
+    }
+
+    public void delete_Matiere(int id) {
+         this.matiererepository.deleteById(id);
+    }
 
 }
