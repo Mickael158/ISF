@@ -44,4 +44,8 @@ public interface CoursRepository extends JpaRepository<Cours, Integer> {
    
     """,nativeQuery = true)
     Optional<Cours> selectCours_next_by_date(@Param("etudiant_id") int etudiant_id ,@Param("promotion_id") int promotion_id , @Param("date_cours") Date date_cours );
+
+    // @Query(value = """
+    //     SELECT * FROM COURS WHERE date_fin >= NOW();
+    // """;)
 }

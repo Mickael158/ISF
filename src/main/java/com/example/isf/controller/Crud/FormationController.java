@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.isf.model.Formation;
-import com.example.isf.model.Promotion;
 import com.example.isf.service.FormationService;
 
 @Controller
@@ -28,8 +27,10 @@ public class FormationController {
     public ResponseEntity<HashMap> insertionFormation(@RequestBody Map<String, String> credentials) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
         String nom_formation = credentials.get("nom_formation");
+        String codef = credentials.get("codef");
         Formation f = new Formation();
         f.setNom_formation(nom_formation);
+        f.setCodeF(codef);
         try {
             Formation formation = this.formationService.enregistrerFormation(f);
             result.put("data",formation);

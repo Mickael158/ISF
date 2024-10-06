@@ -1,26 +1,41 @@
 CREATE TABLE institut(
     id_Institut SERIAL PRIMARY KEY,
-    Logo VARCHAR(100) NOT NULL
+    Logo VARCHAR(100) NOT NULL,
+    Nom_Institut VARCHAR(100) NOT NULL,
+    Description VARCHAR(500) NOT NULL,
+    MotDirecteur VARCHAR(2000) NOT NULL,
+    Agrement VARCHAR(200),
+    Siege VARCHAR(200)
 );
-
+insert into institut(Logo, Nom_Institut, Description, MotDirecteur, Agrement, Siege) VALUES ('AAA','IS-INFO','DESCRIPTION','MOT','AGREMENT','Ampasamadinika');
+CREATE TABLE evenement(
+    id_evenement SERIAL PRIMARY KEY,
+    Date_Evenement date,
+    Lieu_Evenement VARCHAR(100),
+    Decription VARCHAR(1000) NOT NULL,
+    Evenement VARCHAR(200),
+    image VARCHAR
+);
 CREATE TABLE role (
     id_role SERIAL PRIMARY KEY,
-    nom VARCHAR
+    nom VARCHAR(100)
 );
-CREATE TABLE FORMATION(
+insert into role(nom) VALUES('ADMIN');
+CREATE TABLE formation(
     id_Formation SERIAL PRIMARY KEY,
-    Nom_Formation VARCHAR(100) NOT NULL);
+    Nom_Formation VARCHAR(100) NOT NULL,
+    CodeF VARCHAR(10) NOT NULL);
 
-CREATE TABLE FILIERE(
+CREATE TABLE filiere(
     id_Filiere SERIAL PRIMARY KEY,
     CodeF VARCHAR(20) NOT NULL,
     Filiere VARCHAR(100) NOT NULL);
 
-CREATE TABLE SEMESTRE(
+CREATE TABLE semestre(
      id_Semestre SERIAL PRIMARY KEY,
      Semestre VARCHAR(100)
 );
-CREATE TABLE PROMOTION(
+CREATE TABLE promotion(
       id_Promotion SERIAL PRIMARY KEY,
       CodeP VARCHAR(20) NOT NULL,
       Anne_Promotion VARCHAR(20) NOT NULL,
@@ -29,34 +44,37 @@ CREATE TABLE PROMOTION(
 );
 CREATE TABLE genre(
   id_genre SERIAL PRIMARY KEY ,
-  nom VARCHAR
+  nom VARCHAR(100)
 );
+insert into genre(nom) VALUES('Masculin');
 CREATE TABLE personne(
      id_personne SERIAL PRIMARY KEY,
      Nom VARCHAR(100) NOT NULL,
      Prenom VARCHAR(100) NOT NULL,
      Telephone VARCHAR(16) NOT NULL,
      id_genre INT REFERENCES genre(id_genre),
-     email VARCHAR,
-     adresse VARCHAR
+     email VARCHAR(100),
+     adresse VARCHAR(100)
 );
-CREATE TABLE ETUDIANT(
+INSERT INTO personne(Nom, Prenom, Telephone, id_genre, email, adresse) VALUES('raherimanana','Toky','0343562462',1,'zosephatoky@ggmail.com','FAIV 410 B');
+CREATE TABLE etudiant(
      id_Etudiant SERIAL PRIMARY KEY,
      Matricule VARCHAR(10) ,
      id_personne INT REFERENCES personne(id_personne),
      promotion_id INT REFERENCES promotion(id_Promotion)
 );
-CREATE TABLE Utilisateur(
+CREATE TABLE utilisateur(
     id_utilisateur SERIAL PRIMARY KEY,
     Password VARCHAR(100) NOT NULL,
     idRole INT REFERENCES role(id_role),
     id_personne INT REFERENCES personne(id_personne)
 );
+insert into utilisateur(Password,idRole,id_personne) VALUES('123456',1,1);
 CREATE TABLE niveaux(
     id_niveaux SERIAL PRIMARY KEY,
-    nom VARCHAR
+    nom VARCHAR(100)
 );
-CREATE TABLE COURS(
+CREATE TABLE cours(
       id_Cours SERIAL PRIMARY KEY,
       Date_Debut DATE,
       Date_Fin DATE,
@@ -75,7 +93,7 @@ CREATE TABLE prix_ecolage(
      dates date,
      id_niveau INT REFERENCES niveaux(id_niveaux)
 );
-CREATE TABLE ECOLAGE(
+CREATE TABLE ecolage(
     id_Ecolage SERIAL PRIMARY KEY,
     dates Date ,
     date_payement date,
@@ -127,6 +145,16 @@ CREATE TABLE INSCRIPTION_ATTENTE(
                                     Prenom VARCHAR(100) NOT NULL,
                                     Telephone VARCHAR(16) NOT NULL,
                                     Utilisateur_id  INT REFERENCES Utilisateur(id_Utilisateur));
+
+
+SELECT p.id_personne, p.nom, p.prenom, p.telephone, p.id_genre, p.email, p.adresse
+FROM personne p
+LEFT JOIN etudiant e ON p.id_personne = e.id_personne
+LEFT JOIN professeur pr ON pr.id_personne = p.id_personne
+WHERE e.id_personne IS NULL 
+AND pr.id_personne IS NULL
+AND p.email = 'jeanson@gmail.com';
+
 
 
 

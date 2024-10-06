@@ -65,7 +65,7 @@ public class PromotionController {
             result.put("data",promotions);
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
-            result.put("Erreur" , e.getMessage());
+            result.put("Erreur" , e.getMessage()); 
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }

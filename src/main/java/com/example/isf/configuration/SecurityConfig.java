@@ -33,7 +33,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> {
                     req
                             .requestMatchers("/Utilisateur/**").permitAll()
-                            .anyRequest().authenticated();
+                            .requestMatchers("/Institut/SelectAll_Intitut").permitAll()
+                            .requestMatchers("/Evenement/insertionEvenement").permitAll()
+                            .anyRequest().permitAll();
                 })
                 .httpBasic(Customizer.withDefaults());
         http.addFilterBefore(jwtInterceptor(), UsernamePasswordAuthenticationFilter.class);

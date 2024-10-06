@@ -2,18 +2,21 @@ package com.example.isf.controller.Crud;
 
 import com.example.isf.model.Niveaux;
 import com.example.isf.model.PrixEcolage;
+import com.example.isf.model.Promotion;
 import com.example.isf.service.NiveauService;
 import com.example.isf.service.PrixEcolageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -43,6 +46,19 @@ public class PrixEcolageController {
             return new ResponseEntity<>(result , HttpStatus.OK);
         }catch (Exception e) {
             result.put("Erreur" , e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @GetMapping("/ConsultationPrix")
+    public ResponseEntity<HashMap> Consultation() throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        try {
+            List<PrixEcolage> prixEcolage = this.prixEcolageService.Consultation();
+            result.put("data",prixEcolage);
+            return new ResponseEntity<>(result , HttpStatus.OK);
+        }catch (Exception e) {
+            result.put("Erreur" , e.getMessage()); 
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }

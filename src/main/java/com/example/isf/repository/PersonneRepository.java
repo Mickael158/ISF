@@ -11,7 +11,13 @@ import java.util.Optional;
 @Repository
 public interface PersonneRepository extends JpaRepository<Personne, Integer> {
     @Query(value = """
-   select * from personne where email=:email;
+   SELECT p.id_personne, p.nom, p.prenom, p.telephone, p.id_genre, p.email, p.adresse
+FROM personne p
+LEFT JOIN etudiant e ON p.id_personne = e.id_personne
+LEFT JOIN professeur pr ON pr.id_personne = p.id_personne
+WHERE e.id_personne IS NULL 
+AND pr.id_personne IS NULL
+AND p.email = :email;
     """,nativeQuery = true)
     Optional<Personne> select_personne_by_Email(@Param("email") String email);
 
